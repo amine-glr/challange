@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -32,114 +33,76 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> items = [
+    'gsokljgsljk',
+    'goaspjdgsojwa',
+    'gsokldjgsk',
+    'goaspjdgpojwatdy',
+    'gsokldjgsljk',
+    'goaspj',
+    'ksgspdgksgkğ',
+    'fsdfghljklykjde',
+    'fkdkpdgkpdkg',
+    'ksdlşgkkgdğ',
+    'dlsglğgpdlshğ',
+    'fskfspdgkpsg',
+    'lsdplgğslgg',
+    'lfslgğpsldgs',
+    'lğpslfğpslg',
+    'flspdlgğspg',
+    'sfgsg',
+  ];
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaleFactor: 1),
-      child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.white,
-            title: Center(
-              child: Text(
-                widget.title,
-                style: TextStyle(
-                    color: Colors.teal[500], fontWeight: FontWeight.w500),
-              ),
-            ),
+    final devicepixelratio = MediaQuery.of(context).devicePixelRatio;
+    final textpixelratio = MediaQuery.of(context).textScaleFactor;
+    print(devicepixelratio);
+    print(textpixelratio);
+    int count = 3;
+
+    if (textpixelratio == 1) {
+      count = 3;
+    }
+    if (textpixelratio < 1) {
+      count = 4;
+    }
+    if (textpixelratio > 1) {
+      count = 2;
+    }
+
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Center(
+          child: Text(
+            widget.title,
+            style:
+                TextStyle(color: Colors.teal[500], fontWeight: FontWeight.w500),
           ),
-          body: GridView.count(
-            crossAxisCount: 3,
+        ),
+      ),
+      body: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: count,
+        ),
+        itemCount: items.length - 1,
+        itemBuilder: (context, index) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Block(
-                text1: 'gsokljgsljk',
-                text2: 'goaspjdgsojwa',
+              Text(
+                items[index],
+                style: Theme.of(context).textTheme.caption,
               ),
-              Block(
-                text1: 'gsokldjgsk',
-                text2: 'goaspjdgpojwatdy',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspj',
-              ),
-              Block(
-                text1: 'gsokldjgljk',
-                text2: 'goaspjdgsojwatydk',
-              ),
-              Block(
-                text1: 'gsoklsljk',
-                text2: 'goaspjdgpasojdg',
-              ),
-              Block(
-                text1: 'gsokljk',
-                text2: 'goaspjdgpasojwaf',
-              ),
-              Block(
-                text1: 'gsoklgsljk',
-                text2: 'goaspjdgpasojwa',
-              ),
-              Block(
-                text1: 'gsokldljk',
-                text2: 'goaspjdgsojwa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspjdgpasojwa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspjdgpasojwa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspjdgpaso',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspjjwa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaspjdasojwa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goaswa',
-              ),
-              Block(
-                text1: 'gsokldjgsljk',
-                text2: 'goasppasojwa',
+              Text(
+                items[index + 1],
+                style: Theme.of(context).textTheme.caption,
               ),
             ],
-          )),
-    );
-  }
-}
-
-class Block extends StatelessWidget {
-  const Block({
-    Key? key,
-    required this.text1,
-    required this.text2,
-  }) : super(key: key);
-  final String text1;
-  final String text2;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text(
-          text1,
-          style: Theme.of(context).textTheme.caption,
-        ),
-        Text(
-          text2,
-          style: Theme.of(context).textTheme.caption,
-        ),
-      ],
+          );
+        },
+      ),
     );
   }
 }
